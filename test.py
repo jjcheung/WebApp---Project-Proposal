@@ -1,3 +1,5 @@
-from model import *
+import model
 
-proj2 = Project("Proj2", "Some random ramblings", "JJ")
+proj2 = model.Project("Proj2", "Some random ramblings", "JJ")
+
+allrecords = model.Project.select_all()

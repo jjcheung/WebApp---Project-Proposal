@@ -1,36 +1,37 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, url_for, redirect
 import sqlite3
+import model
 
 app = Flask(__name__)
 
 
 @app.route('/')
 def index():
-    return render_template('proj-list.html')
+    data = model.Project.select_all()
+    return render_template('proj-list.html', data=data)
+
 
 @app.route('/form')
 def proj_form():
     return render_template('proj-form.html')
 
+
 @app.route('/submit', methods = ['POST'])
 def generate():
-    submission = request.form['submit']
-    if submission == 'Submit Proposal':
-        data = report()
-        return render_template('proj-list.html', data=data)
-    else:
-        insert(request.form)
-        return 'Project Proposal submitted.'
+    data = request.form
+    model.Project(data['project_name'], data['project_description'], data['proposer_name'])
+    return redirect(url_for('index'))
+    #return 'Data inserted'
+
 
 @app.route("/report", methods=['GET'])
 def report():
-    conn = sqlite3.connect("app.db")
-    cursor = conn.execute('SELECT ID, title, description, proposer FROM Project;')
-    data = []
-    for record in cursor:
-        data.append(record)
-    conn.close()
+    data = model.Project.select_all()
     return render_template('proj-list.html', data=data)
 
+@app.route("/delete/<pid>", methods=['GET'])
+def delete(pid):
+  model.Project.delete(int(pid))
+  return redirect(url_for("index"))
 
 app.run(host='0.0.0.0', port=81)

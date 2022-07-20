@@ -1,6 +1,8 @@
 { pkgs }: {
   deps = [
-    pkgs.python38Full
+    pkgs.sqlite.bin
+    pkgs.show all
+pkgs.python38Full
   ];
   env = {
     PYTHON_LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath [

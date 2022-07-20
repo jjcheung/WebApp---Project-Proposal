@@ -7,28 +7,31 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
-		<title>Project Lists</title>
+		<title>Registered Projects</title>
 	</head>
 	<body>
-		<h1>Registered Projects</h1>
+		<h1>List of Registered Projects</h1>
 		<table>
 			<tr>
 				<th>Project ID</th>
 				<th>Project Name</th>
         <th>Project Description</th>
-        <th>Project Proposer</th>        
+        <th>Project Proposer</th>
+        <th>Delete this project</th>
 			</tr>
 			{% for record in data %}
 			<tr>
 				{% for value in record %}
 				<td>{{value}}</td>
 				{% endfor %}
+        <td><a href="{{url_for('delete', pid=record[0]) }}">Delete</a></td>
 			</tr>
 			{% endfor %}
 		</table>
-      
+    <br>
     <form action="{{url_for("proj_form")}}">
       <input type="Submit" value="Register new project">
     </form>
+
 	</body>
 </html>
