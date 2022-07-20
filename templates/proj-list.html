@@ -17,14 +17,17 @@
 				<th>Project Name</th>
         <th>Project Description</th>
         <th>Project Proposer</th>
-        <th>Delete this project</th>
+        <th>Delete this Project</th>
 			</tr>
 			{% for record in data %}
 			<tr>
 				{% for value in record %}
 				<td>{{value}}</td>
 				{% endfor %}
-        <td><a href="{{url_for('delete', pid=record[0]) }}">Delete</a></td>
+        <!-- <td><a href="{{url_for('delete', pid=record[0]) }}">Delete</a></td> -->
+              <td><form action="{{url_for('delete', pid=record[0]) }}">
+      <input id='del-button' type="Submit" value="Delete Project">
+    </form></td>  
 			</tr>
 			{% endfor %}
 		</table>
