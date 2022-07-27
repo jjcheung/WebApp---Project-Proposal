@@ -29,9 +29,11 @@ def report():
     data = model.Project.select_all()
     return render_template('proj-list.html', data=data)
 
+
 @app.route("/delete/<pid>", methods=['GET'])
 def delete(pid):
   model.Project.delete(int(pid))
   return redirect(url_for("index"))
+
 
 app.run(host='0.0.0.0', port=81)
